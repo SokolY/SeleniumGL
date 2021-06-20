@@ -17,6 +17,7 @@ public class ExampleTest {
     WebElement password;//
     WebElement lgnBtn;
     WebElement menuItem;
+    WebElement subMenuItem;
     WebElement menuHeader;
 
     boolean isElementPresent(WebDriver driver, By locator) {
@@ -62,6 +63,18 @@ public class ExampleTest {
         for (int i = 1; i<=menuItems.size(); i++){
             menuItem = driver.findElement(By.xpath("//*[@id=\"box-apps-menu\"]/li[" + i + "]"));
             menuItem.click();
+            Thread.sleep(2000);
+            ArrayList<WebElement> subMenuItems = new ArrayList<>(driver.findElements(By.cssSelector("#box-apps-menu > li.app.selected > ul > li")));
+            System.out.println("SubMenu length " + subMenuItems.size());
+            for (int j = 1; j<=subMenuItems.size(); j++){
+                menuItem = driver.findElement(By.xpath("//*[@id=\"box-apps-menu\"]/li[" + i + "]"));
+                subMenuItem = menuItem.findElement(By.xpath(".//ul/li[" + j + "]/a"));
+                subMenuItem.click();
+                Thread.sleep(2000);
+            }
+//            menuItem = driver.findElement(By.xpath("//*[@id=\"box-apps-menu\"]/li[" + i + "]"));
+//            subMenuItem = menuItem.findElement(By.xpath(".//ul/li[2]/a"));
+//            subMenuItem.click();
             Thread.sleep(2000);
             Assertions.assertTrue(driver.findElement(By.cssSelector("div.panel-heading")).isDisplayed());
         }
