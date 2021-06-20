@@ -8,6 +8,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class ExampleTest {
 
@@ -18,6 +19,14 @@ public class ExampleTest {
     WebElement menuItem;
     WebElement menuHeader;
 
+    boolean isElementPresent(WebDriver driver, By locator) {
+        try {
+            driver.findElement(locator);
+            return true;
+        } catch (NoSuchElementException ex) {
+            return false;
+        }
+    }
     @BeforeAll
     public static void beforeAll() {
 //        System.setProperty("webdriver.gecko.driver", "D:\\Yura\\SeleniumGL\\utils\\geckodriver-v0.29.1-win64\\geckodriver.exe");
@@ -47,11 +56,14 @@ public class ExampleTest {
     public void prt() throws InterruptedException {
         Thread.sleep(2000);
         ArrayList<WebElement> menuItems = new ArrayList<WebElement>(driver.findElements(By.cssSelector("#box-apps-menu>li")));
+        menuHeader = driver.findElement(By.cssSelector("div.panel-heading"));
         System.out.println("List length - " + menuItems.size());
-        for (int i = 0; i<menuItems.size(); i++){
-            menuItem = menuItems.get(i);
+
+        for (int i = 1; i<=menuItems.size(); i++){
+            menuItem = driver.findElement(By.xpath("//*[@id=\"box-apps-menu\"]/li[" + i + "]"));
             menuItem.click();
             Thread.sleep(2000);
+            Assertions.assertTrue(driver.findElement(By.cssSelector("div.panel-heading")).isDisplayed());
         }
 
     }
