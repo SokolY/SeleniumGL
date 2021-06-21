@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class ExampleTest {
+public class HomeWork1 {
 
     static WebDriver driver;
     WebElement userName;
@@ -56,26 +56,24 @@ public class ExampleTest {
     @Test
     public void prt() throws InterruptedException {
         Thread.sleep(2000);
-        ArrayList<WebElement> menuItems = new ArrayList<WebElement>(driver.findElements(By.cssSelector("#box-apps-menu>li")));
+        ArrayList<WebElement> menuItems = new ArrayList<WebElement>(driver.findElements(By.cssSelector("#box-apps-menu>li"))); //find all menu items
         menuHeader = driver.findElement(By.cssSelector("div.panel-heading"));
-        System.out.println("List length - " + menuItems.size());
+//        System.out.println("Menu length - " + menuItems.size());
 
         for (int i = 1; i<=menuItems.size(); i++){
             menuItem = driver.findElement(By.xpath("//*[@id=\"box-apps-menu\"]/li[" + i + "]"));
             menuItem.click();
-            Thread.sleep(2000);
-            ArrayList<WebElement> subMenuItems = new ArrayList<>(driver.findElements(By.cssSelector("#box-apps-menu > li.app.selected > ul > li")));
-            System.out.println("SubMenu length " + subMenuItems.size());
+            Thread.sleep(1000);
+            ArrayList<WebElement> subMenuItems = new ArrayList<>(driver.findElements(By.cssSelector("#box-apps-menu > li.app.selected > ul > li"))); //find quantity of submenu items for each menu
+//            System.out.println("SubMenu length " + subMenuItems.size());
             for (int j = 1; j<=subMenuItems.size(); j++){
                 menuItem = driver.findElement(By.xpath("//*[@id=\"box-apps-menu\"]/li[" + i + "]"));
                 subMenuItem = menuItem.findElement(By.xpath(".//ul/li[" + j + "]/a"));
                 subMenuItem.click();
-                Thread.sleep(2000);
+                Thread.sleep(1000);
+                Assertions.assertTrue(driver.findElement(By.cssSelector("div.panel-heading")).isDisplayed());
             }
-//            menuItem = driver.findElement(By.xpath("//*[@id=\"box-apps-menu\"]/li[" + i + "]"));
-//            subMenuItem = menuItem.findElement(By.xpath(".//ul/li[2]/a"));
-//            subMenuItem.click();
-            Thread.sleep(2000);
+            Thread.sleep(1000);
             Assertions.assertTrue(driver.findElement(By.cssSelector("div.panel-heading")).isDisplayed());
         }
 
