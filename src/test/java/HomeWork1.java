@@ -47,7 +47,7 @@ public class HomeWork1 {
         WebElement password = driver.findElement(By.name("password"));//
         WebElement lgnBtn = driver.findElement(By.cssSelector(".btn-default"));
         userName.sendKeys("");
-        password.sendKeys("");
+        password.sendKeys("1");
         Thread.sleep(2000);
         lgnBtn.click();
 
