@@ -19,24 +19,21 @@ public class TestBase {
     public WebDriver driver;
     public WebDriverWait wait;
 
-    String BASE_URL = "";
-    String LOGIN_NAME = "";
-    String LOGIN_PASS = "";
 
     public String getBASE_URL() {
-        return BASE_URL;
+        return System.getenv("LITECART_BASE_URL");
     }
 
     public String getLOGIN_NAME() {
-        return LOGIN_NAME;
+        return System.getenv("LITECART_ADMIN_USER");
     }
 
     public String getLOGIN_PASS() {
-        return LOGIN_PASS;
+        return System.getenv("LITECART_ADMIN_PASSWORD");
     }
 
 
-    @BeforeEach
+//    @BeforeEach
     public void start() throws MalformedURLException {
 
         if (tlDriver.get() != null) {
@@ -47,21 +44,22 @@ public class TestBase {
 
 //        driver = new ChromeDriver();
         driver = new FirefoxDriver();
+        // driver.manage().window().maximize();
         wait = new WebDriverWait(driver, 10);
 
         tlDriver.set(driver);
 
-        Runtime.getRuntime().addShutdownHook(
-                new Thread(() -> {
-                    driver.quit();
-                    driver = null;
-                }));
+//        Runtime.getRuntime().addShutdownHook(
+//                new Thread(() -> {
+//                    driver.quit();
+//                    driver = null;
+//                }));
     }
 
     public String getTestURL() {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("test.html").getFile());
-        return "file:///"+
+        return "file:///" +
                 file.getAbsolutePath();
     }
 
