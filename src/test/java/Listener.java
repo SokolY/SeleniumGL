@@ -13,30 +13,30 @@ import static java.lang.Thread.sleep;
 
 public class Listener extends AbstractWebDriverEventListener {
 
-//    @Override
-//    public void beforeFindBy(By by, WebElement element, WebDriver driver) {
-//        System.out.println("[Starting search for:] " + by);
-//    }
+    @Override
+    public void beforeFindBy(By by, WebElement element, WebDriver driver) {
+        System.out.println("[Starting search for:] " + by);
+    }
+
+    @Override
+    public void afterFindBy(By by, WebElement element, WebDriver driver) {
+        System.out.println("["+ by + "] has been found");
+    }
 //
-//    @Override
-//    public void afterFindBy(By by, WebElement element, WebDriver driver) {
-//        System.out.println("["+ by + "] has been found");
-//    }
 //
+    @Override
+    public void onException(Throwable throwable, WebDriver driver) {
+
+        File tempFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        try {
+            Files.copy(tempFile,
+                    new File(System.currentTimeMillis() + "screen.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 //
-//    @Override
-//    public void onException(Throwable throwable, WebDriver driver) {
-//
-//        File tempFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-//        try {
-//            Files.copy(tempFile,
-//                    new File(System.currentTimeMillis() + "screen.png"));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        System.out.println("[Shit Happened:] "+throwable.getMessage().split(":")[0]);
-//    }
+        System.out.println("[Shit Happened:] "+throwable.getMessage().split(":")[0]);
+    }
 
 
     @Override
@@ -44,15 +44,15 @@ public class Listener extends AbstractWebDriverEventListener {
         highlight(element, "orange",driver);
     }
 
-    @Override
-    public void beforeFindBy(By by, WebElement element, WebDriver driver) {
-        highlight(element, "red", driver);
-    }
+//    @Override
+//    public void beforeFindBy(By by, WebElement element, WebDriver driver) {
+//        highlight(element, "red", driver);
+//    }
 
-    @Override
-    public void afterFindBy(By by, WebElement element, WebDriver driver) {
-        highlight(element, "green", driver);
-    }
+//    @Override
+//    public void afterFindBy(By by, WebElement element, WebDriver driver) {
+//        highlight(element, "green", driver);
+//    }
 
     @Override
     public void beforeChangeValueOf(WebElement element, WebDriver driver, CharSequence[] keysToSend) {
