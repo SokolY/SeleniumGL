@@ -53,8 +53,8 @@ public class SwitchWindowsHW2 extends TestBase{
         WebElement password = driver.findElement(By.name("password"));//
         WebElement lgnBtn = driver.findElement(By.cssSelector(".btn-default"));
         wait.until(visibilityOfElementLocated(By.name("password")));
-        userName.sendKeys("testadmin");
-        password.sendKeys("R8MRDAYT_test");
+        userName.sendKeys("");
+        password.sendKeys("");
 
         wait.until(elementToBeClickable(lgnBtn)).click();
 //        lgnBtn.click();
